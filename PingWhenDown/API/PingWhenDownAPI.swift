@@ -186,6 +186,8 @@ class PingWhenDownAPI: ObservableObject {
         print("Failed to encode order")
         return
     }
+    
+    print(encoded)
 
     // create post request
     var request = URLRequest(url: URL(string: endpoint + "/websites")!)
@@ -198,8 +200,6 @@ class PingWhenDownAPI: ObservableObject {
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
     let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-      
-      print(data!)
             
             if let error = error {
                 print("Error took place \(error)")

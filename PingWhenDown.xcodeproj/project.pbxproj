@@ -17,7 +17,7 @@
 		CF67572E24E9D29B0086560B /* PingWhenDownUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF67572D24E9D29B0086560B /* PingWhenDownUITests.swift */; };
 		CF910A8324EBFDEA007FF06A /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF910A8224EBFDEA007FF06A /* ListRow.swift */; };
 		CF910A8624EC0169007FF06A /* ListStatusIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF910A8524EC0169007FF06A /* ListStatusIcon.swift */; };
-		CF910A8A24EC042C007FF06A /* Website.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF910A8924EC042C007FF06A /* Website.swift */; };
+		CFA069E024EC6E7D007B6563 /* Website.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA069DF24EC6E7D007B6563 /* Website.swift */; };
 		CFBBE5CB24EC227500D2B2F5 /* PingWhenDownAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBBE5CA24EC227500D2B2F5 /* PingWhenDownAPI.swift */; };
 		CFBBE5CD24EC2AC500D2B2F5 /* WebsitesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBBE5CC24EC2AC500D2B2F5 /* WebsitesList.swift */; };
 		CFBBE5D024EC2D7200D2B2F5 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBBE5CF24EC2D7200D2B2F5 /* Header.swift */; };
@@ -69,7 +69,7 @@
 		CF67572F24E9D29B0086560B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF910A8224EBFDEA007FF06A /* ListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRow.swift; sourceTree = "<group>"; };
 		CF910A8524EC0169007FF06A /* ListStatusIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStatusIcon.swift; sourceTree = "<group>"; };
-		CF910A8924EC042C007FF06A /* Website.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Website.swift; sourceTree = "<group>"; };
+		CFA069DF24EC6E7D007B6563 /* Website.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Website.swift; sourceTree = "<group>"; };
 		CFBBE5CA24EC227500D2B2F5 /* PingWhenDownAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingWhenDownAPI.swift; sourceTree = "<group>"; };
 		CFBBE5CC24EC2AC500D2B2F5 /* WebsitesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsitesList.swift; sourceTree = "<group>"; };
 		CFBBE5CF24EC2D7200D2B2F5 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
@@ -189,7 +189,7 @@
 		CFBBE5C924EC225900D2B2F5 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				CF910A8924EC042C007FF06A /* Website.swift */,
+				CFA069DF24EC6E7D007B6563 /* Website.swift */,
 				CFBBE5CA24EC227500D2B2F5 /* PingWhenDownAPI.swift */,
 			);
 			path = API;
@@ -381,7 +381,6 @@
 				CF910A8624EC0169007FF06A /* ListStatusIcon.swift in Sources */,
 				CFBBE5D024EC2D7200D2B2F5 /* Header.swift in Sources */,
 				CF67570C24E9D2940086560B /* AppDelegate.swift in Sources */,
-				CF910A8A24EC042C007FF06A /* Website.swift in Sources */,
 				CFBBE5D224EC375100D2B2F5 /* APIState.swift in Sources */,
 				CFC94B2524EC556D00E8A937 /* AddWebsiteSheet.swift in Sources */,
 				CFC94B1D24EC41CB00E8A937 /* LoadingIcon.swift in Sources */,
@@ -391,6 +390,7 @@
 				CFC94B1124EC3F8400E8A937 /* LottieView.swift in Sources */,
 				CFC94B2324EC542E00E8A937 /* AddWebsiteButton.swift in Sources */,
 				CF67571024E9D2940086560B /* ContentView.swift in Sources */,
+				CFA069E024EC6E7D007B6563 /* Website.swift in Sources */,
 				CFBBE5CB24EC227500D2B2F5 /* PingWhenDownAPI.swift in Sources */,
 				CFBBE5CD24EC2AC500D2B2F5 /* WebsitesList.swift in Sources */,
 				CFC94B1F24EC422900E8A937 /* ActiveIcon.swift in Sources */,

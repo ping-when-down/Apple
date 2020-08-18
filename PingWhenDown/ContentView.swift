@@ -12,16 +12,28 @@ struct ContentView: View {
   
   @ObservedObject var pingWhenDownAPI = PingWhenDownAPI()
   
+  @State var showAddWebsiteSheet = false
+  
   var body: some View {
     
-    VStack {
-      Header(pingWhenDownAPI: pingWhenDownAPI)
+    NavigationView {
       WebsitesList(pingWhenDownAPI: pingWhenDownAPI)
-        .padding(.top, -7)
+        .navigationBarTitle("Ping When Down")
+        .navigationBarItems(
+          leading:
+            EditButton(),
+          trailing:
+            Button(action: {
+              self.showAddWebsiteSheet = true
+            }) {
+              Image(systemName: "plus")
+            }
+            .sheet(isPresented: $showAddWebsiteSheet) {
+              AddWebsiteSheet(showAddWebsiteSheet: self.$showAddWebsiteSheet)
+            }
+        )
     }
     
   }
   
 }
-
-

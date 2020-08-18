@@ -14,7 +14,9 @@ struct WebsitesList: View {
   
   var body: some View {
     List(pingWhenDownAPI.websites) { website in
-      ListRow(website: website)
+      NavigationLink(destination: Text("Detail")) {
+        ListRow(website: website)
+      }
     }.onAppear() {
       self.pingWhenDownAPI.set(state: .active)
       UITableView.appearance().separatorColor = .clear
