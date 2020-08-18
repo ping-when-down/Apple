@@ -12,8 +12,8 @@ struct AddWebsiteSheet: View {
   
   @Binding var showAddWebsiteSheet: Bool
   
-  @State var title: String = "Hey"
-  @State var url: String = "Test"
+  @State var title: String = ""
+  @State var url: String = ""
   
   @State var enabled: Bool = true
   @State private var intervalIndex = 0
@@ -48,6 +48,7 @@ struct AddWebsiteSheet: View {
         Section {
           Button(action: {
             self.pingWhenDownAPI.addWebsite(data: Website(title: self.title, url: self.url, interval: self.intervalOptions[self.intervalIndex]) )
+            self.showAddWebsiteSheet = false
           }) {
             Text("Add Website")
           }
@@ -72,7 +73,8 @@ struct AddWebsiteSheet: View {
             .foregroundColor(Color(.systemRed))
         },
         trailing: Button(action: {
-          print("ln")
+          self.pingWhenDownAPI.addWebsite(data: Website(title: self.title, url: self.url, interval: self.intervalOptions[self.intervalIndex]) )
+          self.showAddWebsiteSheet = false
         }) {
           Text("Add")
       })

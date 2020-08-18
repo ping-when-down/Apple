@@ -181,19 +181,11 @@ class PingWhenDownAPI: ObservableObject {
   
   
   func addWebsite(data: Website) {
-    
-    print("here1")
-    
-    // prepare json data
-    let json: Dictionary<String, Any> = ["title": "ABC",
-                               "dict": ["1":"First", "2":"Second"]]
 
     guard let encoded = try? JSONEncoder().encode(data) else {
         print("Failed to encode order")
         return
     }
-    
-    print(encoded)
 
     // create post request
     var request = URLRequest(url: URL(string: endpoint + "/websites")!)
