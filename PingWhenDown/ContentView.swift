@@ -10,18 +10,18 @@ import SwiftUI
 
 struct ContentView: View {
   
+  @ObservedObject var pingWhenDownAPI = PingWhenDownAPI()
+  
   var body: some View {
     
     VStack {
-      Text("Hello, World!")
-      List {
-        ListRow(website: Website(title: "Earth", url: "https://joao.earth", interval: 1, statusCode: 200, statusMessage: "OK", responseTime: 356, lastChecked: nil))
-        ListRow(website: Website(title: "Earth", url: "https://joao.earth", interval: 1, statusCode: 500, statusMessage: "OK", responseTime: 356, lastChecked: nil))
-        ListRow(website: Website(title: "Earth", url: "https://joao.earth", interval: 1, statusCode: nil, statusMessage: "OK", responseTime: 356, lastChecked: nil))
-      }
+      Header(pingWhenDownAPI: pingWhenDownAPI)
+      WebsitesList(pingWhenDownAPI: pingWhenDownAPI)
+        .padding(.top, -7)
     }
     
   }
+  
 }
 
 

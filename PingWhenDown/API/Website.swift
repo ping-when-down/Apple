@@ -16,5 +16,16 @@ struct Website: Codable, Identifiable, Equatable {
   let statusCode: Int?
   let statusMessage: String?
   let responseTime: Int?
-  let lastChecked: Date?
+  let lastChecked: String?
+  
+  init(title: String, url: String, interval: Int) {
+    self.title = title
+    self.url = url
+    self.interval = interval
+    self.statusCode = nil
+    self.statusMessage = nil
+    self.responseTime = nil
+    self.lastChecked = nil
+  }
+  
 }

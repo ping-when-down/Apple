@@ -19,9 +19,14 @@ struct ListRow: View {
       ListStatusIcon(statusCode: website.statusCode, statusMessage: website.statusMessage)
       
       VStack(alignment: .leading, spacing: 5) {
-        Text(website.statusMessage ?? "-")
-          .font(.footnote).bold()
-          .foregroundColor(Color(.systemGray))
+        HStack {
+          Text(website.statusMessage ?? "...")
+            .font(.footnote).bold()
+            .foregroundColor(Color(.systemGray))
+          Text(website.responseTime != nil ? "(\(website.responseTime!) ms)" : "(...)")
+            .font(.footnote)
+            .foregroundColor(Color(.systemGray))
+        }
         Text(website.title)
           .bold()
           .foregroundColor(Color(.darkText))
