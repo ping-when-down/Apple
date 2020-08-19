@@ -10,7 +10,9 @@ import SwiftUI
 
 struct AddWebsiteButton: View {
   
-  @State var showAddWebsiteSheet = true
+  @EnvironmentObject var pingWhenDownAPI: PingWhenDownAPI
+  
+  @State var showAddWebsiteSheet = false
   
   var body: some View {
     Button(action: {
@@ -20,6 +22,7 @@ struct AddWebsiteButton: View {
     }
     .sheet(isPresented: $showAddWebsiteSheet) {
       AddWebsiteSheet(showAddWebsiteSheet: self.$showAddWebsiteSheet)
+        .environmentObject(self.pingWhenDownAPI)
     }
   }
   

@@ -12,28 +12,35 @@ struct ContentView: View {
   
   @ObservedObject var pingWhenDownAPI = PingWhenDownAPI()
   
-  @State var showAddWebsiteSheet = false
-  
   var body: some View {
-    
     NavigationView {
-      WebsitesList(pingWhenDownAPI: pingWhenDownAPI)
-        .navigationBarTitle("Ping When Down")
-        .navigationBarItems(
-          leading:
-            EditButton(),
-          trailing:
-            Button(action: {
-              self.showAddWebsiteSheet = true
-            }) {
-              Image(systemName: "plus")
-            }
-            .sheet(isPresented: $showAddWebsiteSheet) {
-              AddWebsiteSheet(showAddWebsiteSheet: self.$showAddWebsiteSheet)
-            }
-        )
+      List {
+        ForEach(pingWhenDownAPI.websites) { data in
+          NavigationLink(destination: WebsiteDetail(website: data)) {
+            ListRow(website: data)
+          }
+        }
+        .onDelete(perform: delete)
+        .onMove(perform: move)
+      }
+      .navigationBarTitle("Ping When Down")
+      .navigationBarItems(leading: EditButton(), trailing: AddWebsiteButton().environmentObject(self.pingWhenDownAPI))
+      .onAppear() {
+        self.pingWhenDownAPI.set(state: .active)
+        UITableView.appearance().separatorColor = .clear
+      }
+      .onDisappear() {
+        self.pingWhenDownAPI.set(state: .paused)
+      }
     }
-    
+  }
+  
+  func delete(at offsets: IndexSet) {
+    pingWhenDownAPI.delete(at: offsets)
+  }
+  
+  func move(from source: IndexSet, to destination: Int) {
+    pingWhenDownAPI.reorder(from: source, to: destination)
   }
   
 }

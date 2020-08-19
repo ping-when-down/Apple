@@ -10,44 +10,53 @@ import SwiftUI
 
 struct AddWebsiteSheet: View {
   
+  @EnvironmentObject var pingWhenDownAPI: PingWhenDownAPI
+  
   @Binding var showAddWebsiteSheet: Bool
   
   @State var title: String = ""
   @State var url: String = ""
+  @State var interval: String = ""
   
   @State var enabled: Bool = true
-  @State private var intervalIndex = 0
-  var intervalOptions = [10, 30, 60, 300]
-  
-  let pingWhenDownAPI = PingWhenDownAPI()
   
   var body: some View {
-    NavigationView {
+    
+    UITableView.appearance().separatorColor = .separator
+    UITextField.appearance().clearButtonMode = .whileEditing
+    
+    return NavigationView {
       
       Form {
         
         Section(header: Text("TITLE")) {
           TextField("Website Title", text: $title)
+            .textContentType(.name)
+            .autocapitalization(.words)
         }
         
         Section(header: Text("URL")) {
           TextField("https://my.website.com", text: $url)
+            .textContentType(.URL)
+            .keyboardType(.URL)
+            .autocapitalization(.none)
+            .disableAutocorrection(true)
+        }
+        
+        Section(header: Text("INTERVAL")) {
+          TextField("10 seconds", text: $interval)
+            .keyboardType(.numberPad)
         }
         
         Section(header: Text("SETTINGS")) {
           Toggle(isOn: $enabled) {
             Text("Enabled")
           }
-          Picker(selection: $intervalIndex, label: Text("Monitor Interval")) {
-            ForEach(0 ..< intervalOptions.count) {
-              Text(String(self.intervalOptions[$0]))
-            }
-          }
         }
         
         Section {
           Button(action: {
-            self.pingWhenDownAPI.addWebsite(data: Website(title: self.title, url: self.url, interval: self.intervalOptions[self.intervalIndex]) )
+            self.pingWhenDownAPI.add(website: Website(title: self.title, url: self.url, interval: Int(self.interval) ?? 30, index: self.pingWhenDownAPI.websites.count) )
             self.showAddWebsiteSheet = false
           }) {
             Text("Add Website")
@@ -73,7 +82,7 @@ struct AddWebsiteSheet: View {
             .foregroundColor(Color(.systemRed))
         },
         trailing: Button(action: {
-          self.pingWhenDownAPI.addWebsite(data: Website(title: self.title, url: self.url, interval: self.intervalOptions[self.intervalIndex]) )
+          self.pingWhenDownAPI.add(website: Website(title: self.title, url: self.url, interval: Int(self.interval) ?? 30, index: self.pingWhenDownAPI.websites.count) )
           self.showAddWebsiteSheet = false
         }) {
           Text("Add")

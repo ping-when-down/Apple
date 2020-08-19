@@ -160,8 +160,6 @@ class PingWhenDownAPI: ObservableObject {
             self.websites.append(item)
           }
           
-          self.websites.sort(by: { $1.index > $0.index })
-          
           self.set(state: .idle)
           
         }
@@ -182,16 +180,14 @@ class PingWhenDownAPI: ObservableObject {
   
   
   
-  func add(website: Website) {
+  func addWebsite(data: Website) {
 
-    // Add localy
-    websites.append(website)
-    
-    // Add remotely
-    guard let encoded = try? JSONEncoder().encode(website) else {
+    guard let encoded = try? JSONEncoder().encode(data) else {
         print("Failed to encode order")
         return
     }
+    
+    print(encoded)
 
     // create post request
     var request = URLRequest(url: URL(string: endpoint + "/websites")!)
@@ -220,94 +216,7 @@ class PingWhenDownAPI: ObservableObject {
            }
      
     }
-    
     task.resume()
-    
-  }
-  
-  
-  
-  
-  
-  
-  func delete(at offsets: IndexSet) {
-    
-    // Delete remotely
-    var idsToDelete: [String] = []
-    offsets.forEach { index in
-      idsToDelete.append(websites[index]._id)
-    }
-    
-    // Delete localy
-    websites.remove(atOffsets: offsets)
-    
-    // Delete remotely
-    idsToDelete.forEach { id in
-      
-      var request = URLRequest(url: URL(string: endpoint + "/websites/" + id)!)
-      
-      request.httpMethod = "DELETE"
-      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-      
-      let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-        
-        if let error = error {
-          print("Error took place \(error)")
-          return
-        }
-      }
-      
-      task.resume()
-      
-    }
-  
-  }
-
-  
-  func reorder(from source: IndexSet, to destination: Int) {
-    
-    websites.move(fromOffsets: source, toOffset: destination)
-    
-    for (index, website) in websites.enumerated() {
-      
-      websites[index].index = index
-      
-      guard let encoded = try? JSONEncoder().encode(websites[index]) else {
-          print("Failed to encode order")
-          return
-      }
-
-      // create post request
-      var request = URLRequest(url: URL(string: endpoint + "/websites/" + website._id)!)
-      request.httpMethod = "PUT"
-
-      // insert json data to the request
-      request.httpBody = encoded
-      request.setValue("application/json", forHTTPHeaderField: "Accept")
-      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-      
-      let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-              
-              if let error = error {
-                  print("Error took place \(error)")
-                  return
-              }
-              guard let data = data else {return}
-              do{
-                  let todoItemModel = try JSONDecoder().decode(Website.self, from: data)
-                  print("Response data:\n \(todoItemModel)")
-                  print("todoItemModel Title: \(todoItemModel.title)")
-                  print("todoItemModel id: \(todoItemModel.url)")
-              }catch let jsonErr{
-                  print(jsonErr)
-             }
-       
-      }
-      
-      task.resume()
-      
-    }
-  
   }
   
   

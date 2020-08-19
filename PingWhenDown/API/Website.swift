@@ -10,6 +10,8 @@ import Foundation
 
 struct Website: Codable, Identifiable, Equatable {
   let id = UUID()
+  let _id: String
+  var index: Int
   let title: String
   let url: String
   let interval: Int
@@ -18,7 +20,9 @@ struct Website: Codable, Identifiable, Equatable {
   let responseTime: Int?
   let lastChecked: String?
   
-  init(title: String, url: String, interval: Int) {
+  init(title: String, url: String, interval: Int, index: Int) {
+    self._id = ""
+    self.index = index
     self.title = title
     self.url = url
     self.interval = interval

@@ -23,16 +23,19 @@ struct ListRow: View {
           Text(website.statusMessage ?? "...")
             .font(.footnote).bold()
             .foregroundColor(Color(.systemGray))
+            .lineLimit(1)
           Text(website.responseTime != nil ? "(\(website.responseTime!) ms)" : "(...)")
             .font(.footnote)
             .foregroundColor(Color(.systemGray))
+            .lineLimit(1)
         }
         Text(website.title)
           .bold()
-          .foregroundColor(Color(.darkText))
+          .lineLimit(1)
         Text(website.url)
           .font(.footnote)
           .foregroundColor(Color(.systemGray))
+          .lineLimit(1)
       }
       
       Spacer()
