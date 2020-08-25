@@ -127,7 +127,7 @@ class Website: ObservableObject, Identifiable {
    */
   @objc private func update() {
     // Setup the url
-    let url = URL(string: endpoint + "/website/" + (self.properties._id)! )!
+    let url = URL(string: endpoint + "/websites/" + (self.properties._id)! )!
     
     // Configure a session
     let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -146,11 +146,13 @@ class Website: ObservableObject, Identifiable {
       
       do {
         
-        let decodedData = try JSONDecoder().decode([WebsiteModel].self, from: data!)
+        let decodedData = try JSONDecoder().decode(WebsiteModel.self, from: data!)
         
         OperationQueue.main.addOperation {
           
-          self.properties = decodedData[0]
+          print(decodedData)
+          
+          self.properties = decodedData
         
         }
         
