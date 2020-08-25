@@ -13,7 +13,7 @@ struct WebsiteDetail: View {
   let website: Website
   
   var body: some View {
-    Text(website.title)
+    Text(website.properties.title)
   }
   
 }

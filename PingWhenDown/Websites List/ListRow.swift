@@ -16,23 +16,23 @@ struct ListRow: View {
     
     HStack {
       
-      ListStatusIcon(statusCode: website.statusCode, statusMessage: website.statusMessage)
+      ListStatusIcon(statusCode: website.properties.statusCode, statusMessage: website.properties.statusMessage)
       
       VStack(alignment: .leading, spacing: 5) {
         HStack {
-          Text(website.statusMessage ?? "...")
+          Text(website.properties.statusMessage ?? "...")
             .font(.footnote).bold()
             .foregroundColor(Color(.systemGray))
             .lineLimit(1)
-          Text(website.responseTime != nil ? "(\(website.responseTime!) ms)" : "(...)")
+          Text(website.properties.responseTime != nil ? "(\(website.properties.responseTime!) ms)" : "(...)")
             .font(.footnote)
             .foregroundColor(Color(.systemGray))
             .lineLimit(1)
         }
-        Text(website.title)
+        Text(website.properties.title)
           .bold()
           .lineLimit(1)
-        Text(website.url)
+        Text(website.properties.host)
           .font(.footnote)
           .foregroundColor(Color(.systemGray))
           .lineLimit(1)

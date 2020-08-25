@@ -56,7 +56,7 @@ struct AddWebsiteSheet: View {
         
         Section {
           Button(action: {
-            self.pingWhenDownAPI.add(website: Website(title: self.title, url: self.url, interval: Int(self.interval) ?? 30, index: self.pingWhenDownAPI.websites.count) )
+//            self.pingWhenDownAPI.add(website: Website(title: self.title, url: self.url, interval: Int(self.interval) ?? 30, index: self.pingWhenDownAPI.websites.count) )
             self.showAddWebsiteSheet = false
           }) {
             Text("Add Website")
@@ -82,7 +82,7 @@ struct AddWebsiteSheet: View {
             .foregroundColor(Color(.systemRed))
         },
         trailing: Button(action: {
-          self.pingWhenDownAPI.add(website: Website(title: self.title, url: self.url, interval: Int(self.interval) ?? 30, index: self.pingWhenDownAPI.websites.count) )
+//          self.pingWhenDownAPI.add(website: Website(title: self.title, url: self.url, interval: Int(self.interval) ?? 30, index: self.pingWhenDownAPI.websites.count) )
           self.showAddWebsiteSheet = false
         }) {
           Text("Add")

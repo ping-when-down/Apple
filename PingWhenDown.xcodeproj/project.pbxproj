@@ -34,6 +34,7 @@
 		CFC94B2124EC426200E8A937 /* ErrorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC94B2024EC426200E8A937 /* ErrorIcon.swift */; };
 		CFC94B2324EC542E00E8A937 /* AddWebsiteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC94B2224EC542E00E8A937 /* AddWebsiteButton.swift */; };
 		CFC94B2524EC556D00E8A937 /* AddWebsiteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC94B2424EC556D00E8A937 /* AddWebsiteSheet.swift */; };
+		CFEB74C424F2DB1C009F55B9 /* WebsiteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEB74C324F2DB1C009F55B9 /* WebsiteModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		CFC94B2024EC426200E8A937 /* ErrorIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorIcon.swift; sourceTree = "<group>"; };
 		CFC94B2224EC542E00E8A937 /* AddWebsiteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWebsiteButton.swift; sourceTree = "<group>"; };
 		CFC94B2424EC556D00E8A937 /* AddWebsiteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWebsiteSheet.swift; sourceTree = "<group>"; };
+		CFEB74C324F2DB1C009F55B9 /* WebsiteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsiteModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				CFA069DF24EC6E7D007B6563 /* Website.swift */,
+				CFEB74C324F2DB1C009F55B9 /* WebsiteModel.swift */,
 				CFBBE5CA24EC227500D2B2F5 /* PingWhenDownAPI.swift */,
 			);
 			path = API;
@@ -404,6 +407,7 @@
 				CFA069E024EC6E7D007B6563 /* Website.swift in Sources */,
 				CFBBE5CB24EC227500D2B2F5 /* PingWhenDownAPI.swift in Sources */,
 				CFB8A10824EC89EC00B79AB5 /* WebsiteDetail.swift in Sources */,
+				CFEB74C424F2DB1C009F55B9 /* WebsiteModel.swift in Sources */,
 				CFBBE5CD24EC2AC500D2B2F5 /* WebsitesList.swift in Sources */,
 				CFC94B1F24EC422900E8A937 /* ActiveIcon.swift in Sources */,
 			);
