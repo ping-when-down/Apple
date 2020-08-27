@@ -13,7 +13,10 @@ struct WebsiteDetail: View {
   let website: Website
   
   var body: some View {
-    Text(website.properties.title)
+    HStack {
+      Text(website.title)
+      Text("\(website.responseTime!)")
+    }
   }
   
 }

@@ -37,11 +37,11 @@ struct ListStatusIcon: View {
 
       RoundedRectangle(cornerRadius: 10)
         .fill(backgroundColor)
-
-      Text(statusCode != nil ? "\(statusCode!)" : "...")
-        .font(.title)
-        .bold()
-        .foregroundColor(foregroundColor)
+        
+        Text(statusCode != nil ? "\(statusCode!)" : "...")
+          .font(.title)
+          .bold()
+          .foregroundColor(foregroundColor)
 
     }
     .frame(width: 80, height: 80)

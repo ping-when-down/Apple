@@ -17,6 +17,8 @@ class PingWhenDownAPI: ObservableObject {
   private var syncInterval = 10.0 // seconds
   private var endpoint = "https://pingwhendown-api.herokuapp.com"
   
+  private var timer: Timer? = nil
+  
   /* * */
   
   
@@ -30,7 +32,14 @@ class PingWhenDownAPI: ObservableObject {
   
   
   init() {
-    self.getAllWebsites()
+    self.sync()
+    self.timer = Timer.scheduledTimer(
+      timeInterval: syncInterval,
+      target: self,
+      selector: #selector(self.sync),
+      userInfo: nil,
+      repeats: true
+    )
   }
   
   
@@ -71,7 +80,7 @@ class PingWhenDownAPI: ObservableObject {
         case .paused:
           break
         case .active:
-          self.getAllWebsites()
+          self.sync()
           break
         case .loading:
           break
@@ -106,7 +115,7 @@ class PingWhenDownAPI: ObservableObject {
    * while storing them in the vehicles array. It also formats VehicleAnnotations and stores them in the annotations array.
    * It must have @objc flag because Timer is written in Objective-C.
    */
-  func getAllWebsites() {
+  @objc func sync() {
     
     self.set(state: .loading)
     
@@ -120,27 +129,44 @@ class PingWhenDownAPI: ObservableObject {
     let task = session.dataTask(with: url) { (data, response, error) in
       
       let httpResponse = response as? HTTPURLResponse
-      
-      // Check status of response
       if httpResponse?.statusCode != 200 {
-        print("Error: API failed at getWebsites()")
+        print("Error: API failed at add(:Website)")
         OperationQueue.main.addOperation { self.set(state: .error) }
         return
       }
       
       do {
         
-        let decodedData = try JSONDecoder().decode([WebsiteModel].self, from: data!)
+        let decodedData = try JSONDecoder().decode([Website].self, from: data!)
         
         OperationQueue.main.addOperation {
           
-          self.websites.removeAll()
-          
-          for websiteModel in decodedData {
-            self.websites.append(Website(properties: websiteModel))
+          if self.websites.count < 1 {
+            
+            self.websites.append(contentsOf: decodedData)
+            
+          } else {
+            
+            for item in decodedData {
+              
+              let i = self.websites.firstIndex { $0._id == item._id }
+            
+              self.websites[i!].title = item.title
+              self.websites[i!].active = item.active
+              self.websites[i!].index = item.index
+              self.websites[i!].https = item.https
+              self.websites[i!].host = item.host
+              self.websites[i!].statusCode = item.statusCode
+              self.websites[i!].statusMessage = item.statusMessage
+              self.websites[i!].responseTime = item.responseTime
+              self.websites[i!].lastChecked = item.lastChecked
+              self.websites[i!].lastDown = item.lastDown
+              
+            }
+
           }
           
-          self.websites.sort(by: { $1.properties.index > $0.properties.index })
+          self.websites.sort(by: { $1.index > $0.index })
           
           self.set(state: .idle)
           
@@ -162,133 +188,140 @@ class PingWhenDownAPI: ObservableObject {
   
   
   
-//  func add(website: Website) {
-//
-//    // Add localy
-//    websites.append(website)
-//    
-//    // Add remotely
-//    guard let encoded = try? JSONEncoder().encode(website) else {
-//        print("Failed to encode order")
-//        return
-//    }
-//
-//    // create post request
-//    var request = URLRequest(url: URL(string: endpoint + "/websites")!)
-//    request.httpMethod = "POST"
-//
-//    // insert json data to the request
-//    request.httpBody = encoded
-//    
-//    request.setValue("application/json", forHTTPHeaderField: "Accept")
-//    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//    
-//    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-//            
-//            if let error = error {
-//                print("Error took place \(error)")
-//                return
-//            }
-//            guard let data = data else {return}
-//            do{
-//                let todoItemModel = try JSONDecoder().decode(Website.self, from: data)
-//                print("Response data:\n \(todoItemModel)")
-//                print("todoItemModel Title: \(todoItemModel.title)")
-//                print("todoItemModel id: \(todoItemModel.url)")
-//            }catch let jsonErr{
-//                print(jsonErr)
-//           }
-//     
-//    }
-//    
-//    task.resume()
-//    
-//  }
+  func add(website: Website) {
+
+    // Add localy
+    websites.append(website)
+    
+    // Add remotely
+    guard let requestBody = try? JSONEncoder().encode(website) else {
+        print("Failed to encode order")
+        return
+    }
+
+    // create post request
+    var request = URLRequest(url: URL(string: endpoint + "/websites")!)
+    
+    request.httpMethod = "POST"
+    request.httpBody = requestBody
+    
+    request.setValue("application/json", forHTTPHeaderField: "Accept")
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+      
+      let httpResponse = response as? HTTPURLResponse
+      if httpResponse?.statusCode != 200 {
+        print("Error: API failed at add(:Website)")
+        OperationQueue.main.addOperation { self.set(state: .error) }
+        return
+      }
+      
+      do {
+        
+        let decodedData = try JSONDecoder().decode(Website.self, from: data!)
+        
+        OperationQueue.main.addOperation {
+          let i = self.websites.firstIndex(of: website)
+          self.websites[i!]._id = decodedData._id
+        }
+      
+      } catch {
+        print("Error info: \(error)")
+        OperationQueue.main.addOperation { self.set(state: .error) }
+      }
+     
+    }
+    
+    task.resume()
+    
+  }
   
   
   
   
   
   
-//  func delete(at offsets: IndexSet) {
-//
-//    // Delete remotely
-//    var idsToDelete: [String] = []
-//    offsets.forEach { index in
-//      idsToDelete.append(websites[index].properties._id)
-//    }
-//
-//    // Delete localy
-//    websites.remove(atOffsets: offsets)
-//
-//    // Delete remotely
-//    idsToDelete.forEach { id in
-//
-//      var request = URLRequest(url: URL(string: endpoint + "/websites/" + id)!)
-//
-//      request.httpMethod = "DELETE"
-//      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//      let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-//
-//        if let error = error {
-//          print("Error took place \(error)")
-//          return
-//        }
-//      }
-//
-//      task.resume()
-//
-//    }
-//
-//  }
+  func delete(at offsets: IndexSet) {
+
+    var idsToDelete: [String] = []
+    offsets.forEach { index in
+      idsToDelete.append(websites[index]._id!)
+    }
+    
+    self.websites.remove(atOffsets: offsets)
+
+    idsToDelete.forEach { id in
+
+      var request = URLRequest(url: URL(string: endpoint + "/websites/" + id)!)
+      request.httpMethod = "DELETE"
+      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+      let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        
+        let httpResponse = response as? HTTPURLResponse
+        if httpResponse?.statusCode != 200 {
+          print("Error: API failed at add(:Website)")
+          OperationQueue.main.addOperation { self.set(state: .error) }
+          return
+        }
+        
+      }
+
+      task.resume()
+
+    }
+
+  }
+  
+  
+  
 
   
-//  func reorder(from source: IndexSet, to destination: Int) {
-//
-//    websites.move(fromOffsets: source, toOffset: destination)
-//
-//    for (index, website) in websites.enumerated() {
-//
-//      websites[index].properties.index = index
-//
-//      guard let encoded = try? JSONEncoder().encode(websites[index]) else {
-//          print("Failed to encode order")
-//          return
-//      }
-//
-//      // create post request
-//      var request = URLRequest(url: URL(string: endpoint + "/websites/" + website.properties._id)!)
-//      request.httpMethod = "PUT"
-//
-//      // insert json data to the request
-//      request.httpBody = encoded
-//      request.setValue("application/json", forHTTPHeaderField: "Accept")
-//      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//      let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-//
-//              if let error = error {
-//                  print("Error took place \(error)")
-//                  return
-//              }
-//              guard let data = data else {return}
-//              do{
-//                  let todoItemModel = try JSONDecoder().decode(Website.self, from: data)
-//                  print("Response data:\n \(todoItemModel)")
-//                  print("todoItemModel Title: \(todoItemModel.title)")
-//                  print("todoItemModel id: \(todoItemModel.url)")
-//              }catch let jsonErr{
-//                  print(jsonErr)
-//             }
-//
-//      }
-//
-//      task.resume()
-//
-//    }
-//
-//  }
+  func reorder(from source: IndexSet, to destination: Int) {
+
+    websites.move(fromOffsets: source, toOffset: destination)
+
+    for (index, website) in websites.enumerated() {
+
+      websites[index].index = index
+
+      guard let encoded = try? JSONEncoder().encode(websites[index]) else {
+          print("Failed to encode order")
+          return
+      }
+
+      // create post request
+      var request = URLRequest(url: URL(string: endpoint + "/websites/" + website._id!)!)
+      request.httpMethod = "PUT"
+
+      // insert json data to the request
+      request.httpBody = encoded
+      request.setValue("application/json", forHTTPHeaderField: "Accept")
+      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+      let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+              if let error = error {
+                  print("Error took place \(error)")
+                  return
+              }
+              guard let data = data else {return}
+              do{
+                  let todoItemModel = try JSONDecoder().decode(Website.self, from: data)
+                  print("Response data:\n \(todoItemModel)")
+                  print("todoItemModel Title: \(todoItemModel.title)")
+              }catch let jsonErr{
+                  print(jsonErr)
+             }
+
+      }
+
+      task.resume()
+
+    }
+
+  }
   
   
 }

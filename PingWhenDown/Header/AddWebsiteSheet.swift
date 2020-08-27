@@ -15,10 +15,9 @@ struct AddWebsiteSheet: View {
   @Binding var showAddWebsiteSheet: Bool
   
   @State var title: String = ""
-  @State var url: String = ""
-  @State var interval: String = ""
-  
-  @State var enabled: Bool = true
+  @State var https: Int = 1
+  @State var host: String = ""
+  @State var active: Bool = true
   
   var body: some View {
     
@@ -35,28 +34,37 @@ struct AddWebsiteSheet: View {
             .autocapitalization(.words)
         }
         
-        Section(header: Text("URL")) {
-          TextField("https://my.website.com", text: $url)
+        Section(header: Text("HOST")) {
+          Picker(
+            selection: $https,
+            label: Text("Protocol"),
+            content: {
+                  Text("HTTP").tag(0)
+                  Text("HTTPS").tag(1)
+          }).pickerStyle(SegmentedPickerStyle())
+          
+          TextField("my.website.com", text: $host)
             .textContentType(.URL)
             .keyboardType(.URL)
             .autocapitalization(.none)
             .disableAutocorrection(true)
         }
         
-        Section(header: Text("INTERVAL")) {
-          TextField("10 seconds", text: $interval)
-            .keyboardType(.numberPad)
-        }
-        
         Section(header: Text("SETTINGS")) {
-          Toggle(isOn: $enabled) {
+          Toggle(isOn: $active) {
             Text("Enabled")
           }
         }
         
         Section {
           Button(action: {
-//            self.pingWhenDownAPI.add(website: Website(title: self.title, url: self.url, interval: Int(self.interval) ?? 30, index: self.pingWhenDownAPI.websites.count) )
+            self.pingWhenDownAPI.add(website: Website(
+              title: self.title,
+              active: self.active,
+              index: self.pingWhenDownAPI.websites.count,
+              https: (self.https > 0) ? true : false,
+              host: self.host
+            ))
             self.showAddWebsiteSheet = false
           }) {
             Text("Add Website")
@@ -82,7 +90,13 @@ struct AddWebsiteSheet: View {
             .foregroundColor(Color(.systemRed))
         },
         trailing: Button(action: {
-//          self.pingWhenDownAPI.add(website: Website(title: self.title, url: self.url, interval: Int(self.interval) ?? 30, index: self.pingWhenDownAPI.websites.count) )
+          self.pingWhenDownAPI.add(website: Website(
+            title: self.title,
+            active: self.active,
+            index: self.pingWhenDownAPI.websites.count,
+            https: (self.https > 0) ? true : false,
+            host: self.host
+          ))
           self.showAddWebsiteSheet = false
         }) {
           Text("Add")

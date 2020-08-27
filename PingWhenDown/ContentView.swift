@@ -20,23 +20,23 @@ struct ContentView: View {
             ListRow(website: data)
           }
         }
-//        .onDelete(perform: delete)
-//        .onMove(perform: move)
+        .onDelete(perform: delete)
+        .onMove(perform: move)
       }
       .navigationBarTitle("Ping When Down")
-//      .navigationBarItems(leading: EditButton(), trailing: AddWebsiteButton().environmentObject(self.pingWhenDownAPI))
+      .navigationBarItems(leading: EditButton(), trailing: AddWebsiteButton().environmentObject(self.pingWhenDownAPI))
       .onAppear() {
         UITableView.appearance().separatorColor = .clear
       }
     }
   }
   
-//  func delete(at offsets: IndexSet) {
-//    pingWhenDownAPI.delete(at: offsets)
-//  }
-//
-//  func move(from source: IndexSet, to destination: Int) {
-//    pingWhenDownAPI.reorder(from: source, to: destination)
-//  }
+  func delete(at offsets: IndexSet) {
+    pingWhenDownAPI.delete(at: offsets)
+  }
+
+  func move(from source: IndexSet, to destination: Int) {
+    pingWhenDownAPI.reorder(from: source, to: destination)
+  }
   
 }
