@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import PushNotifications
 
 class PingWhenDownAPI: ObservableObject {
   
@@ -18,6 +19,8 @@ class PingWhenDownAPI: ObservableObject {
   private var endpoint = "https://pingwhendown-api.herokuapp.com"
   
   private var timer: Timer? = nil
+  
+  let pushNotifications = PushNotifications.shared
   
   /* * */
   
@@ -167,6 +170,13 @@ class PingWhenDownAPI: ObservableObject {
           }
           
           self.websites.sort(by: { $1.index > $0.index })
+          
+          var notificationInterests: [String] = []
+          for website in self.websites {
+            notificationInterests.append(website.host)
+          }
+          try? self.pushNotifications.setDeviceInterests(interests: notificationInterests)
+          
           
           self.set(state: .idle)
           

@@ -18,7 +18,7 @@ struct Website: Codable, Identifiable, Equatable {
   var index: Int
   var https: Bool
   var host: String
-  var statusCode: Int?
+  var statusCode: String?
   var statusMessage: String?
   var responseTime: Int?
   var lastChecked: String?

@@ -17,6 +17,7 @@
 		CF67572E24E9D29B0086560B /* PingWhenDownUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF67572D24E9D29B0086560B /* PingWhenDownUITests.swift */; };
 		CF910A8324EBFDEA007FF06A /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF910A8224EBFDEA007FF06A /* ListRow.swift */; };
 		CF910A8624EC0169007FF06A /* ListStatusIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF910A8524EC0169007FF06A /* ListStatusIcon.swift */; };
+		CF97AC3424F94FEE0090E894 /* PushNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = CF97AC3324F94FEE0090E894 /* PushNotifications */; };
 		CFB8A10824EC89EC00B79AB5 /* WebsiteDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB8A10724EC89EC00B79AB5 /* WebsiteDetail.swift */; };
 		CFBBE5CB24EC227500D2B2F5 /* PingWhenDownAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBBE5CA24EC227500D2B2F5 /* PingWhenDownAPI.swift */; };
 		CFBBE5D024EC2D7200D2B2F5 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBBE5CF24EC2D7200D2B2F5 /* Header.swift */; };
@@ -53,7 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CF67570824E9D2940086560B /* PingWhenDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PingWhenDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF67570824E9D2940086560B /* Ping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF67570B24E9D2940086560B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF67570D24E9D2940086560B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CF67570F24E9D2940086560B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,6 +70,7 @@
 		CF67572F24E9D29B0086560B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF910A8224EBFDEA007FF06A /* ListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRow.swift; sourceTree = "<group>"; };
 		CF910A8524EC0169007FF06A /* ListStatusIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStatusIcon.swift; sourceTree = "<group>"; };
+		CF97AC3124F911210090E894 /* PingWhenDown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PingWhenDown.entitlements; sourceTree = "<group>"; };
 		CFB8A10724EC89EC00B79AB5 /* WebsiteDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsiteDetail.swift; sourceTree = "<group>"; };
 		CFBBE5CA24EC227500D2B2F5 /* PingWhenDownAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingWhenDownAPI.swift; sourceTree = "<group>"; };
 		CFBBE5CF24EC2D7200D2B2F5 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFC94B0624EC3F2100E8A937 /* Lottie in Frameworks */,
+				CF97AC3424F94FEE0090E894 /* PushNotifications in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,7 +128,7 @@
 		CF67570924E9D2940086560B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CF67570824E9D2940086560B /* PingWhenDown.app */,
+				CF67570824E9D2940086560B /* Ping.app */,
 				CF67571E24E9D29B0086560B /* PingWhenDownTests.xctest */,
 				CF67572924E9D29B0086560B /* PingWhenDownUITests.xctest */,
 			);
@@ -135,6 +138,7 @@
 		CF67570A24E9D2940086560B /* PingWhenDown */ = {
 			isa = PBXGroup;
 			children = (
+				CF97AC3124F911210090E894 /* PingWhenDown.entitlements */,
 				CF67570B24E9D2940086560B /* AppDelegate.swift */,
 				CF67570D24E9D2940086560B /* SceneDelegate.swift */,
 				CF67570F24E9D2940086560B /* ContentView.swift */,
@@ -263,9 +267,10 @@
 			name = PingWhenDown;
 			packageProductDependencies = (
 				CFC94B0524EC3F2100E8A937 /* Lottie */,
+				CF97AC3324F94FEE0090E894 /* PushNotifications */,
 			);
 			productName = PingWhenDown;
-			productReference = CF67570824E9D2940086560B /* PingWhenDown.app */;
+			productReference = CF67570824E9D2940086560B /* Ping.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CF67571D24E9D29B0086560B /* PingWhenDownTests */ = {
@@ -338,6 +343,7 @@
 			mainGroup = CF6756FF24E9D2940086560B;
 			packageReferences = (
 				CFC94B0424EC3F2100E8A937 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				CF97AC3224F94FEE0090E894 /* XCRemoteSwiftPackageReference "push-notifications-swift" */,
 			);
 			productRefGroup = CF67570924E9D2940086560B /* Products */;
 			projectDirPath = "";
@@ -566,6 +572,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PingWhenDown/PingWhenDown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PingWhenDown/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
@@ -576,7 +583,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.joao.earth.PingWhenDown;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Ping;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -586,6 +593,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PingWhenDown/PingWhenDown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PingWhenDown/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
@@ -596,7 +604,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.joao.earth.PingWhenDown;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Ping;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -728,6 +736,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CF97AC3224F94FEE0090E894 /* XCRemoteSwiftPackageReference "push-notifications-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pusher/push-notifications-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.4;
+			};
+		};
 		CFC94B0424EC3F2100E8A937 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -739,6 +755,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CF97AC3324F94FEE0090E894 /* PushNotifications */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF97AC3224F94FEE0090E894 /* XCRemoteSwiftPackageReference "push-notifications-swift" */;
+			productName = PushNotifications;
+		};
 		CFC94B0524EC3F2100E8A937 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CFC94B0424EC3F2100E8A937 /* XCRemoteSwiftPackageReference "lottie-ios" */;
